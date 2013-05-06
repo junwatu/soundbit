@@ -9,9 +9,35 @@
  * 2013
  */
 
-console.log("Web Audio API Rock On!");
+console.log("Have Some Fun with Soundcloud API & Web Audio API");
+
+//========================== Soundcloud API ================================
 
 var CLIENT_ID = '75b58a823bb6eba65437a5d0838b311a';
+
+SC.initialize({
+	client_id: CLIENT_ID,
+	redirect_uri: "http://www.junwatu.com/apps/havesomefun/callback.html"
+});
+
+var audioElementSource = document.getElementById('audioElement'),
+    soundURL= "";
+
+SC.stream("/tracks/83992722", function(sound){
+	soundURL = sound.url;
+});
+
+SC.whenStreamingReady(function(){
+	console.log("Streaming ready!");
+	console.log(soundURL);
+	audioElementSource.src = soundURL;
+	audioElementSource.autoplay = false;
+});
+
+/**
+* Web Audio API
+*
+*/
 var WIDTH = 960;
 var HEIGHT = 300;
 
@@ -19,24 +45,17 @@ var HEIGHT = 300;
 var SMOOTHING = 0.2;
 var FFT_SIZE = 128;
 
-SC.initialize({
-	client_id: CLIENT_ID,
-	redirect_uri: "http://localhost:8080/callback.html"
-});
-
-var audioElementSource = document.getElementById('audioElement');
-
-SC.stream("/tracks/83992722", function(sound){
-	audioElementSource.src = sound.url;
-});
-
-
 var context = new webkitAudioContext(),
-    analyser = context.createAnalyser(),
-    sourceNode = context.createMediaElementSource(audioElementSource);
-    sourceNode.connect(analyser);
+    analyser = context.createAnalyser();
+      
+   
+audioElementSource.addEventListener("canplay", function() {
+    var sourceNode = context.createMediaElementSource(audioElementSource);
+    sourceNode.connect(analyser); 
     analyser.connect(context.destination);
     visualize();
+});
+    
 
 window.requestAnimFrame = (function () {
     return window.requestAnimationFrame ||
@@ -95,3 +114,6 @@ function getFrequencyValue(frequency) {
     var index = Math.round(frequency / nyquist * freqs.length);
     return freqs[index];
 }
+
+//=================================================================================
+
