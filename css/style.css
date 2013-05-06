@@ -1,3 +1,13 @@
+
+header {
+    margin: 10px 10px;
+}
+
 #player {
 	width: 600px;
+    margin: 10px 10px;
+}
+
+#main {
+    margin: 10px 10px;
 }
