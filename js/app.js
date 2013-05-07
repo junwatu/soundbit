@@ -1,7 +1,11 @@
 /**
  * Have Some Fun
  *
- * Playing around with SoundCloud API
+ * Streaming from  SoundCloud and Visualize using Web Audio API
+ *
+ *
+ * NOTE:
+ * TESTED on Google Chrome Version 27.0.1453.65 beta!!
  *
  *
  * Equan Pr.
@@ -10,10 +14,16 @@
  */
 
 console.log("Have Some Fun with Soundcloud API & Web Audio API");
+console.log("http://www.junwatu.com");
 
-//========================== Soundcloud API ================================
+//========================== Soundcloud ================================
 
 var CLIENT_ID = '75b58a823bb6eba65437a5d0838b311a';
+
+/**
+*  TODO: Make this stream track dynamic
+*/
+var TRACK = "/tracks/91020014";
 
 SC.initialize({
 	client_id: CLIENT_ID,
@@ -23,7 +33,7 @@ SC.initialize({
 var audioElementSource = document.getElementById('audioElement'),
     soundURL= "";
 
-SC.stream("/tracks/83992722", function(sound){
+SC.stream(TRACK, function(sound){
 	soundURL = sound.url;
 });
 
@@ -32,14 +42,19 @@ SC.whenStreamingReady(function(){
 	console.log(soundURL);
 	audioElementSource.src = soundURL;
 	audioElementSource.autoplay = false;
+
+    SC.get(TRACK, function(track){
+        console.log(track);
+        infoFile(track);
+    });
 });
 
 /**
 * Web Audio API
 *
 */
-var WIDTH = 960;
-var HEIGHT = 300;
+var WIDTH = 330;
+var HEIGHT = 130;
 
 // Interesting parameters to tweak!
 var SMOOTHING = 0.2;
@@ -68,7 +83,7 @@ window.requestAnimFrame = (function () {
 analyser.minDecibels = -140;
 analyser.maxDecibels = 0;
 
-//==================================== Functions ==================================//
+//==================================== Visualize Functions ==================================//
 function visualize() {
     var canvas = document.querySelector('canvas');
     var drawContext = canvas.getContext('2d');
@@ -117,3 +132,11 @@ function getFrequencyValue(frequency) {
 
 //=================================================================================
 
+function infoFile(track) {
+    var li0 = document.getElementById('title');
+    li0.innerHTML = "<strong>" + track.title + "</strong>";
+ 
+    var album_cover = document.getElementById('cover');
+    album_cover.src = track.artwork_url;
+
+}
