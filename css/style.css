@@ -1,13 +1,59 @@
 
 header {
-    margin: 10px 10px;
+    margin: 10px 10px 30px 10px;
 }
 
-#player {
-	width: 600px;
-    margin: 10px 10px;
+
+a, a:hover, a:active {
+	text-decoration: none;
+} 
+
+canvas {
+	position: relative;
+	z-index: -9999;
+}
+
+footer {
+	position: absolute;
+	top: 125px;
+	left: 18px;
+	font-size: smaller;
+}
+
+ul {
+    list-style-type: none;
+    padding: 0px 0px;
+    margin: 0px 0px;
+    font-size: small;
+}
+
+ul li {
+	padding: 5px 15px 5px 0px;
 }
 
 #main {
-    margin: 10px 10px;
+	position: absolute;
+    width: 430px;
+    border: 1px solid;
+}
+
+#main canvas {
+	position: absolute;
+	bottom: 0px;
+	left: 100px;
+}
+
+.title {
+	margin: 0px 0px;
+}
+
+.soundcloud_img {
+	position: fixed;
+	bottom: 20px;
+	left: 25px;
+}
+
+.cover {
+	float: left;
+	margin-right: 15px;
 }
