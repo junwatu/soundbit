@@ -1,23 +1,24 @@
+/**
+*
+*   SoundWig Style
+*
+*
+*   Equan Pr.
+*   http://www.junwatu.com
+*   2013
+*/
 
 header {
     margin: 10px 10px 30px 10px;
 }
 
-
 a, a:hover, a:active {
-	text-decoration: none;
-} 
-
-canvas {
-	position: relative;
-	z-index: -9999;
+    text-decoration: none;
 }
 
-footer {
-	position: absolute;
-	top: 125px;
-	left: 18px;
-	font-size: smaller;
+canvas {
+    position: relative;
+    z-index: -10;
 }
 
 ul {
@@ -28,32 +29,60 @@ ul {
 }
 
 ul li {
-	padding: 5px 15px 5px 0px;
+    padding: 0px 15px 7px 0px;
+}
+
+img {
+    position: relative;
+}
+
+footer {
+    position: absolute;
+    top: 125px;
+    left: 18px;
+    font-size: smaller;
 }
 
 #main {
-	position: absolute;
-    width: 430px;
+    position: absolute;
+    width: 440px;
+    height: 100px;
     border: 1px solid;
 }
 
 #main canvas {
-	position: absolute;
-	bottom: 0px;
-	left: 100px;
+    position: absolute;
+    bottom: 0px;
+    left: 101px;
+}
+
+#playbutton {
+    position: absolute;
+    bottom: 20px;
+    left: 120px;
+}
+
+#main #soundcloud-logo {
+    position: absolute;
+    bottom: 5px;
 }
 
 .title {
-	margin: 0px 0px;
-}
-
-.soundcloud_img {
-	position: fixed;
-	bottom: 20px;
-	left: 25px;
+    margin: 0px 0px;
+    font-size: larger;
 }
 
 .cover {
-	float: left;
-	margin-right: 15px;
+    float: left;
+    width: 100px;
+    height: 100px;
+    background-color: grey;
+    margin: 0px 7px 0px 0px;
+
+}
+
+.user {
+    font-size: smaller;
+    color: silver;
+    padding: 4px 0px;
 }
