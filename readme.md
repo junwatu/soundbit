@@ -1,10 +1,10 @@
-HaveSomeFun
-===========
+SoundWig
+=========
 
-Streaming audio from SoundCloud & visualize using Web Audio API.
+Audio streaming player widget for SoundCloud
 
 
 Demo
-----
+-----
 
 http://www.junwatu.com/apps/havesomefun
