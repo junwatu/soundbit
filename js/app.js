@@ -1,4 +1,6 @@
 /**
+ * SoundWig
+ * --------------------------------------------------------------
  * Have Some Fun
  *
  * Streaming from  SoundCloud and Visualize using Web Audio API
@@ -18,21 +20,22 @@ console.log("http://www.junwatu.com");
 
 //========================== Soundcloud ================================
 
+// set to your soundcloud id
 var CLIENT_ID = '75b58a823bb6eba65437a5d0838b311a';
 
 /**
-*  TODO: Make this stream track dynamic
+*  TODO: Make this id track dynamic
 */
-var TRACK = "/tracks/91020014";
+var TRACK = "/tracks/88015339";
 
 SC.initialize({
 	client_id: CLIENT_ID,
 	redirect_uri: "http://www.junwatu.com/apps/havesomefun/callback.html"
 });
 
-var audioElementSource = document.getElementById('audioElement'),
+var audio = new Audio(),
     soundURL= "";
-
+    
 SC.stream(TRACK, function(sound){
 	soundURL = sound.url;
 });
@@ -40,8 +43,8 @@ SC.stream(TRACK, function(sound){
 SC.whenStreamingReady(function(){
 	console.log("Streaming ready!");
 	console.log(soundURL);
-	audioElementSource.src = soundURL;
-	audioElementSource.autoplay = false;
+	audio.src = soundURL;
+	audio.autoplay = true;
 
     SC.get(TRACK, function(track){
         console.log(track);
@@ -54,24 +57,24 @@ SC.whenStreamingReady(function(){
 *
 */
 var WIDTH = 330;
-var HEIGHT = 130;
+var HEIGHT = 100;
 
 // Interesting parameters to tweak!
-var SMOOTHING = 0.2;
-var FFT_SIZE = 128;
+var SMOOTHING = 0.1;
+var FFT_SIZE =128;
 
 var context = new webkitAudioContext(),
     analyser = context.createAnalyser();
       
    
-audioElementSource.addEventListener("canplay", function() {
-    var sourceNode = context.createMediaElementSource(audioElementSource);
+audio.addEventListener("canplay", function() {
+    console.log("canplay");
+    var sourceNode = context.createMediaElementSource(audio);
     sourceNode.connect(analyser); 
     analyser.connect(context.destination);
     visualize();
 });
     
-
 window.requestAnimFrame = (function () {
     return window.requestAnimationFrame ||
         window.webkitRequestAnimationFrame ||
@@ -90,6 +93,7 @@ function visualize() {
     canvas.width = WIDTH;
     canvas.height = HEIGHT;
 
+    // alternative color style
     var gradientColor = drawContext.createLinearGradient(0, 0, 0, 300);
     gradientColor.addColorStop(1, '#000000');
     gradientColor.addColorStop(0.75, '#ff0000');
@@ -117,9 +121,10 @@ function visualize() {
         var offset = HEIGHT - height - 1;
         var barWidth = WIDTH / analyser.frequencyBinCount;
         var hue = i / analyser.frequencyBinCount * 360;
+        
         drawContext.fillStyle = 'hsl(' + hue + ', 100%, 50%)';
 
-        //drawContext.fillStyle = gradient;
+        //drawContext.fillStyle = gradientColor;
         drawContext.fillRect(i * barWidth, offset, barWidth, height);
     }
 }
@@ -130,9 +135,10 @@ function getFrequencyValue(frequency) {
     return freqs[index];
 }
 
-//=================================================================================
-
 function infoFile(track) {
+    var li1 = document.getElementById('user');
+    li1.innerHTML = "<strong>" + track.user.username + "</strong>";
+
     var li0 = document.getElementById('title');
     li0.innerHTML = "<strong>" + track.title + "</strong>";
  
@@ -140,3 +146,6 @@ function infoFile(track) {
     album_cover.src = track.artwork_url;
 
 }
+
+//=================================================================================
+
