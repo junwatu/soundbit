@@ -1,4 +1,6 @@
 /**
+ *
+ * SoundWig
  * Have Some Fun
  *
  * Streaming from  SoundCloud and Visualize using Web Audio API
@@ -18,6 +20,7 @@ console.log("http://www.junwatu.com");
 
 //========================== Soundcloud ================================
 
+// My SoundCloud ID
 var CLIENT_ID = '75b58a823bb6eba65437a5d0838b311a';
 
 /**
@@ -25,9 +28,9 @@ var CLIENT_ID = '75b58a823bb6eba65437a5d0838b311a';
 */
 var TRACK = "/tracks/91020014";
 
+// Authorize
 SC.initialize({
-	client_id: CLIENT_ID,
-	redirect_uri: "http://www.junwatu.com/apps/havesomefun/callback.html"
+	client_id: CLIENT_ID
 });
 
 var audioElementSource = document.getElementById('audioElement'),
@@ -51,7 +54,6 @@ SC.whenStreamingReady(function(){
 
 /**
 * Web Audio API
-*
 */
 var WIDTH = 330;
 var HEIGHT = 130;
@@ -62,7 +64,6 @@ var FFT_SIZE = 128;
 
 var context = new webkitAudioContext(),
     analyser = context.createAnalyser();
-      
    
 audioElementSource.addEventListener("canplay", function() {
     var sourceNode = context.createMediaElementSource(audioElementSource);
@@ -70,7 +71,6 @@ audioElementSource.addEventListener("canplay", function() {
     analyser.connect(context.destination);
     visualize();
 });
-    
 
 window.requestAnimFrame = (function () {
     return window.requestAnimationFrame ||
@@ -130,8 +130,6 @@ function getFrequencyValue(frequency) {
     return freqs[index];
 }
 
-//=================================================================================
-
 function infoFile(track) {
     var li0 = document.getElementById('title');
     li0.innerHTML = "<strong>" + track.title + "</strong>";
@@ -140,3 +138,6 @@ function infoFile(track) {
     album_cover.src = track.artwork_url;
 
 }
+
+
+//=================================================================================
