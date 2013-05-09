@@ -15,6 +15,9 @@
  * 2013
  */
 
+
+"use strict";
+
 console.log("Have Some Fun with Soundcloud API & Web Audio API");
 console.log("http://www.junwatu.com");
 
@@ -56,9 +59,6 @@ SC.whenStreamingReady(function(){
 * Web Audio API
 *
 */
-var WIDTH = 330;
-var HEIGHT = 100;
-
 // Interesting parameters to tweak!
 var SMOOTHING = 0.1;
 var FFT_SIZE =128;
@@ -88,10 +88,12 @@ analyser.maxDecibels = 0;
 
 //==================================== Visualize Functions ==================================//
 function visualize() {
+
     var canvas = document.querySelector('canvas');
     var drawContext = canvas.getContext('2d');
-    canvas.width = WIDTH;
-    canvas.height = HEIGHT;
+
+    var WIDTH = canvas.width;
+    var HEIGHT = canvas.height;
 
     // alternative color style
     var gradientColor = drawContext.createLinearGradient(0, 0, 0, 300);
@@ -129,6 +131,8 @@ function visualize() {
     }
 }
 
+//=======================================================================================//
+
 function getFrequencyValue(frequency) {
     var nyquist = context.sampleRate / 2;
     var index = Math.round(frequency / nyquist * freqs.length);
@@ -147,5 +151,5 @@ function infoFile(track) {
 
 }
 
-//=================================================================================
+
 
