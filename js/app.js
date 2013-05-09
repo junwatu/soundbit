@@ -16,7 +16,7 @@
  */
 
 console.log("Have Some Fun with Soundcloud API & Web Audio API");
-console.log("http://www.junwatu.com");
+console.log("SoundWig - http://www.junwatu.com");
 
 //========================== Soundcloud ================================
 
@@ -41,8 +41,8 @@ SC.stream(TRACK, function(sound){
 });
 
 SC.whenStreamingReady(function(){
-	console.log("Streaming ready!");
-	console.log(soundURL);
+	console.log("Streaming is ready!");
+	console.log("Streaming URL: "+soundURL);
 	audioElementSource.src = soundURL;
 	audioElementSource.autoplay = false;
 
