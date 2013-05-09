@@ -5,9 +5,13 @@ Audio streaming player widget for SoundCloud. This widget use Web Audio API to v
 the audio spectrum.
 
 
+NOTE:
+For now this app using hard coded track id only.
+
+
 Screenshot
 ---------
-It's very simple
+Here is the simple ui for this app
 
 ![soundwig-screenshot](https://raw.github.com/junwatu/soundwig/soundwig-simple/screenshot/soundwig-0.0.1.png)
 
