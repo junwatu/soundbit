@@ -1,0 +1,90 @@
+/**
+*
+*   SoundWig Style
+*
+*
+*   Equan Pr.
+*   http://www.junwatu.com
+*   2013
+*/
+
+@import "compass/reset";
+
+header {
+  margin: 10px 10px 30px 10px;
+}
+
+a, a:hover, a:active {
+  text-decoration: none;
+}
+
+canvas {
+  position: relative;
+  z-index: -10;
+}
+
+ul {
+  list-style-type: none;
+  padding: 0px 0px;
+  margin: 0px 0px;
+  font-size: small;
+}
+
+ul li {
+  padding: 0px 15px 7px 0px;
+}
+
+img {
+  position: relative;
+}
+
+footer {
+  position: absolute;
+  top: 125px;
+  left: 18px;
+  font-size: smaller;
+}
+
+#main {
+  position: absolute;
+  width: 440px;
+  height: 100px;
+  border: 1px solid;
+}
+
+#main canvas {
+  position: absolute;
+  bottom: 0px;
+  left: 101px;
+}
+
+#playbutton {
+  position: absolute;
+  bottom: 20px;
+  left: 120px;
+}
+
+#main #soundcloud-logo {
+  position: absolute;
+  bottom: 5px;
+}
+
+.title {
+  margin: 0px 0px;
+  font-size: larger;
+}
+
+.cover {
+  float: left;
+  width: 100px;
+  height: 100px;
+  background-color: grey;
+  margin: 0px 7px 0px 0px;
+
+}
+
+.user {
+  font-size: smaller;
+  color: silver;
+  padding: 4px 0px;
+}
