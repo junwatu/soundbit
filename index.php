@@ -13,7 +13,7 @@
             	<li id="title"></li>
                 <li><audio autoplay="false" id="audioElement" controls></li>
                 <li><a href="http://soundcloud.com/" target="blank">
-                		<img src="images/logo_black.png"/>
+                		<img src="images/logo_black.png" width="100" height="100"/>
                 	</a>
             	</li>
            	</ul>
