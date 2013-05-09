@@ -56,4 +56,6 @@ ul li {
 .cover {
 	float: left;
 	margin-right: 15px;
+    border: 0px;
+    background-color: black;
 }

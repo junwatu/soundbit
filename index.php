@@ -8,12 +8,12 @@
 <body>
 	<div id="main">
 		<div id="info">
-			<img id="cover" class="cover">
+			<img id="cover" class="cover"  width="100" height="100">
 	    	<ul id="fileinfo">
             	<li id="title"></li>
                 <li><audio autoplay="false" id="audioElement" controls></li>
                 <li><a href="http://soundcloud.com/" target="blank">
-                		<img src="images/logo_black.png" width="100" height="100"/>
+                		<img src="images/logo_black.png"/>
                 	</a>
             	</li>
            	</ul>
