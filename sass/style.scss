@@ -1,5 +1,4 @@
 /**
-*
 *   SoundWig Style
 *
 *
@@ -7,8 +6,6 @@
 *   http://www.junwatu.com
 *   2013
 */
-
-@import "compass/reset";
 
 header {
   margin: 10px 10px 30px 10px;
@@ -28,10 +25,9 @@ ul {
   padding: 0px 0px;
   margin: 0px 0px;
   font-size: small;
-}
-
-ul li {
-  padding: 0px 15px 7px 0px;
+  li {
+    padding: 0px 15px 7px 0px;
+  }
 }
 
 img {
@@ -50,23 +46,24 @@ footer {
   width: 440px;
   height: 100px;
   border: 1px solid;
-}
 
-#main canvas {
-  position: absolute;
-  bottom: 0px;
-  left: 101px;
-}
+  canvas {
+    position: absolute;
+    bottom: 0px;
+    left: 101px;
+  }
 
-#playbutton {
-  position: absolute;
-  bottom: 20px;
-  left: 120px;
-}
+  #playbutton {
+    position: absolute;
+    bottom: 20px;
+    left: 120px;
+  }
 
-#main #soundcloud-logo {
-  position: absolute;
-  bottom: 5px;
+  #soundcloud-logo {
+    position: absolute;
+    bottom: 5px;
+  }
+
 }
 
 .title {
@@ -80,7 +77,6 @@ footer {
   height: 100px;
   background-color: grey;
   margin: 0px 7px 0px 0px;
-
 }
 
 .user {
