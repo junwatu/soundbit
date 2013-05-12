@@ -5,8 +5,8 @@ Audio streaming player widget for SoundCloud. This widget use Web Audio API to v
 the audio spectrum.
 
 
-NOTE:
-For now this app using hard coded track id only.
+~~NOTE:~~
+~~For now this app using hard coded track id only.~~
 
 
 Screenshot
