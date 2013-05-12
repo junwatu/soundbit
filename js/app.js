@@ -31,7 +31,7 @@ SC.initialize({
 });
 
 // permalink to a track
-var track_url = 'https://soundcloud.com/centurymedia/05-lost-to-apathy',
+var track_url = 'https://soundcloud.com/centurymedia/02-the-science-of-noise',
     TRACK = "";
 
 SC.get('/resolve', { url: track_url }, function (track) {
