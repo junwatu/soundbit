@@ -23,6 +23,10 @@ console.log("http://www.junwatu.com");
 
 //========================== Soundcloud ================================
 
+
+var audio = new Audio(),
+    soundURL= "";
+
 // set to your soundcloud id
 var CLIENT_ID = '75b58a823bb6eba65437a5d0838b311a';
 
@@ -31,14 +35,13 @@ var CLIENT_ID = '75b58a823bb6eba65437a5d0838b311a';
 */
 var TRACK = "/tracks/88015339";
 
+
 SC.initialize({
 	client_id: CLIENT_ID,
 	redirect_uri: "http://www.junwatu.com/apps/havesomefun/callback.html"
 });
 
-var audio = new Audio(),
-    soundURL= "";
-    
+
 SC.stream(TRACK, function(sound){
 	soundURL = sound.url;
 });
@@ -150,6 +153,3 @@ function infoFile(track) {
     album_cover.src = track.artwork_url;
 
 }
-
-
-
