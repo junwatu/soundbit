@@ -1,5 +1,4 @@
 /**
- *
  * SoundWig
  * Have Some Fun
  *
@@ -15,46 +14,48 @@
  * 2013
  */
 
-console.log("Have Some Fun with Soundcloud API & Web Audio API");
-console.log("SoundWig - http://www.junwatu.com");
+//console.log("Have Some Fun with Soundcloud API & Web Audio API");
+//console.log("SoundWig - http://www.junwatu.com");
 
 //========================== Soundcloud ================================
 
 // My SoundCloud ID
 var CLIENT_ID = '75b58a823bb6eba65437a5d0838b311a';
 
-/**
-*  TODO: Make this stream track dynamic
-*/
-var TRACK = "/tracks/91020014";
+// Get Audio Tag Id
+var audioElementSource = document.getElementById('audioElement');
 
 // Authorize
 SC.initialize({
-	client_id: CLIENT_ID
+    client_id: CLIENT_ID
 });
 
-var audioElementSource = document.getElementById('audioElement'),
-    soundURL= "";
+// permalink to a track
+var track_url = 'https://soundcloud.com/centurymedia/05-lost-to-apathy',
+    TRACK = "";
 
-SC.stream(TRACK, function(sound){
-	soundURL = sound.url;
-});
+SC.get('/resolve', { url: track_url }, function (track) {
+    TRACK = "/tracks/" + track.id;
 
-SC.whenStreamingReady(function(){
-	console.log("Streaming is ready!");
-	console.log("Streaming URL: "+soundURL);
-	audioElementSource.src = soundURL;
-	audioElementSource.autoplay = false;
-
-    SC.get(TRACK, function(track){
-        console.log(track);
-        infoFile(track);
+    SC.stream(TRACK,function(sound){
+        //console.log(sound);
+        audioElementSource.src = sound.url;
+        audioElementSource.autoplay = false;
     });
+
+    SC.whenStreamingReady(function () {
+        SC.get(TRACK, function (track) {
+            //console.log(track);
+            infoFile(track);
+        });
+    });
+
 });
+
 
 /**
-* Web Audio API
-*/
+ * Web Audio API
+ */
 var WIDTH = 330;
 var HEIGHT = 130;
 
@@ -64,10 +65,10 @@ var FFT_SIZE = 128;
 
 var context = new webkitAudioContext(),
     analyser = context.createAnalyser();
-   
-audioElementSource.addEventListener("canplay", function() {
+
+audioElementSource.addEventListener("canplay", function () {
     var sourceNode = context.createMediaElementSource(audioElementSource);
-    sourceNode.connect(analyser); 
+    sourceNode.connect(analyser);
     analyser.connect(context.destination);
     visualize();
 });
@@ -133,11 +134,10 @@ function getFrequencyValue(frequency) {
 function infoFile(track) {
     var li0 = document.getElementById('title');
     li0.innerHTML = "<strong>" + track.title + "</strong>";
- 
+
     var album_cover = document.getElementById('cover');
     album_cover.src = track.artwork_url;
 
 }
 
-
-//=================================================================================
+//=================================================================================//
