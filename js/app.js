@@ -20,7 +20,7 @@
 //========================== Soundcloud ================================
 
 // My SoundCloud ID
-var CLIENT_ID = '75b58a823bb6eba65437a5d0838b311a';
+var CLIENT_ID = 'YOUR_SOUNDCLOUD_CLIENT_ID';
 
 // Get Audio Tag Id
 var audioElementSource = document.getElementById('audioElement');
