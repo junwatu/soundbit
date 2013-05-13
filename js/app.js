@@ -38,7 +38,7 @@ SC.get('/resolve', { url: track_url }, function (track) {
     TRACK = "/tracks/" + track.id;
 
     SC.stream(TRACK,function(sound){
-        //console.log(sound);
+        console.log(sound);
         audioElementSource.src = sound.url;
         audioElementSource.autoplay = false;
     });
@@ -63,8 +63,19 @@ var HEIGHT = 130;
 var SMOOTHING = 0.2;
 var FFT_SIZE = 128;
 
-var context = new webkitAudioContext(),
-    analyser = context.createAnalyser();
+var contextClass = (window.AudioContext ||
+    window.webkitAudioContext ||
+    window.mozAudioContext ||
+    window.oAudioContext ||
+    window.msAudioContext);
+
+if(contextClass){
+    var context = new webkitAudioContext(),
+        analyser = context.createAnalyser();
+
+}else {
+    alert("Your browser not supported!");
+}
 
 audioElementSource.addEventListener("canplay", function () {
     var sourceNode = context.createMediaElementSource(audioElementSource);
