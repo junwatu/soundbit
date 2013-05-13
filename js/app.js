@@ -14,12 +14,7 @@
  * 2013
  */
 
-//console.log("Have Some Fun with Soundcloud API & Web Audio API");
-//console.log("SoundWig - http://www.junwatu.com");
-
-//========================== Soundcloud ================================
-
-// My SoundCloud ID
+// SoundCloud ID
 var CLIENT_ID = 'YOUR_SOUNDCLOUD_CLIENT_ID';
 
 // Get Audio Tag Id
@@ -30,10 +25,11 @@ SC.initialize({
     client_id: CLIENT_ID
 });
 
-// permalink to a track
+// Permalink to a track
 var track_url = 'https://soundcloud.com/centurymedia/02-the-science-of-noise',
     TRACK = "";
 
+// Resolve track id from permalink
 SC.get('/resolve', { url: track_url }, function (track) {
     TRACK = "/tracks/" + track.id;
 
@@ -52,6 +48,14 @@ SC.get('/resolve', { url: track_url }, function (track) {
 
 });
 
+function infoFile(track) {
+    var li0 = document.getElementById('title');
+    li0.innerHTML = "<strong>" + track.title + "</strong>";
+
+    var album_cover = document.getElementById('cover');
+    album_cover.src = track.artwork_url;
+
+}
 
 /**
  * Web Audio API
@@ -95,32 +99,27 @@ window.requestAnimFrame = (function () {
 analyser.minDecibels = -140;
 analyser.maxDecibels = 0;
 
-//==================================== Visualize Functions ==================================//
+/**
+ * Visualize with canvas
+ */
 function visualize() {
     var canvas = document.querySelector('canvas');
     var drawContext = canvas.getContext('2d');
     canvas.width = WIDTH;
     canvas.height = HEIGHT;
 
-    var gradientColor = drawContext.createLinearGradient(0, 0, 0, 300);
-    gradientColor.addColorStop(1, '#000000');
-    gradientColor.addColorStop(0.75, '#ff0000');
-    gradientColor.addColorStop(0.25, '#ffff00');
-    gradientColor.addColorStop(0, '#ffffff');
-
     window.webkitRequestAnimationFrame(visualize, canvas);
 
     var freqs = new Uint8Array(analyser.frequencyBinCount);
-    var times = new Uint8Array(analyser.frequencyBinCount);
 
     analyser.smoothingTimeConstant = SMOOTHING;
     analyser.fftSize = FFT_SIZE;
 
-    // Draw the frequency domain chart.
-    // Get the frequency data from the currently playing music
+    /**
+     * Draw the frequency domain chart.
+     * Get the frequency data from the currently playing music
+     */
     analyser.getByteFrequencyData(freqs);
-
-    var width = Math.floor(1 / freqs.length, 10);
 
     for (var i = 0; i < analyser.frequencyBinCount; i++) {
         var value = freqs[i];
@@ -131,24 +130,6 @@ function visualize() {
         var hue = i / analyser.frequencyBinCount * 360;
         drawContext.fillStyle = 'hsl(' + hue + ', 100%, 50%)';
 
-        //drawContext.fillStyle = gradient;
         drawContext.fillRect(i * barWidth, offset, barWidth, height);
     }
 }
-
-function getFrequencyValue(frequency) {
-    var nyquist = context.sampleRate / 2;
-    var index = Math.round(frequency / nyquist * freqs.length);
-    return freqs[index];
-}
-
-function infoFile(track) {
-    var li0 = document.getElementById('title');
-    li0.innerHTML = "<strong>" + track.title + "</strong>";
-
-    var album_cover = document.getElementById('cover');
-    album_cover.src = track.artwork_url;
-
-}
-
-//=================================================================================//
