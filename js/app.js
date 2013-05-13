@@ -6,78 +6,68 @@
  * Streaming from  SoundCloud and Visualize using Web Audio API
  *
  *
- * NOTE:
- * TESTED on Google Chrome Version 27.0.1453.65 beta!!
- *
  *
  * Equan Pr.
- * www.junwatu.com
- * 2013
+ * 2013 (c) www.junwatu.com
+ *
  */
 
 
 "use strict";
 
-console.log("Have Some Fun with Soundcloud API & Web Audio API");
-console.log("http://www.junwatu.com");
-
 //========================== Soundcloud ================================
-
-
-var audio = new Audio(),
-    soundURL= "";
 
 // set to your soundcloud id
 var CLIENT_ID = '75b58a823bb6eba65437a5d0838b311a';
 
-/**
-*  TODO: Make this id track dynamic
-*/
-var TRACK = "/tracks/88015339";
+var audio = new Audio();
 
-
+// Authorize
 SC.initialize({
-	client_id: CLIENT_ID,
-	redirect_uri: "http://www.junwatu.com/apps/havesomefun/callback.html"
+    client_id: CLIENT_ID,
+    redirect_uri: "http://www.junwatu.com/apps/havesomefun/callback.html"
 });
 
+// permalink to a track
+var track_url = 'https://soundcloud.com/centurymedia/02-the-science-of-noise',
+    TRACK = "";
 
-SC.stream(TRACK, function(sound){
-	soundURL = sound.url;
-});
+SC.get('/resolve', { url: track_url }, function (track) {
+    TRACK = "/tracks/" + track.id;
 
-SC.whenStreamingReady(function(){
-	console.log("Streaming ready!");
-	console.log(soundURL);
-	audio.src = soundURL;
-	audio.autoplay = true;
+    SC.stream(TRACK, function (sound) {
+        audio.src = sound.url;
+        audio.autoplay = true;
+    });
 
-    SC.get(TRACK, function(track){
-        console.log(track);
-        infoFile(track);
+    SC.whenStreamingReady(function () {
+        SC.get(TRACK, function (track) {
+            console.log(track);
+            infoFile(track);
+        });
     });
 });
 
 /**
-* Web Audio API
-*
-*/
+ * Web Audio API
+ *
+ */
 // Interesting parameters to tweak!
 var SMOOTHING = 0.1;
-var FFT_SIZE =128;
+var FFT_SIZE = 128;
 
 var context = new webkitAudioContext(),
     analyser = context.createAnalyser();
-      
-   
-audio.addEventListener("canplay", function() {
+
+
+audio.addEventListener("canplay", function () {
     console.log("canplay");
     var sourceNode = context.createMediaElementSource(audio);
-    sourceNode.connect(analyser); 
+    sourceNode.connect(analyser);
     analyser.connect(context.destination);
     visualize();
 });
-    
+
 window.requestAnimFrame = (function () {
     return window.requestAnimationFrame ||
         window.webkitRequestAnimationFrame ||
@@ -126,7 +116,7 @@ function visualize() {
         var offset = HEIGHT - height - 1;
         var barWidth = WIDTH / analyser.frequencyBinCount;
         var hue = i / analyser.frequencyBinCount * 360;
-        
+
         drawContext.fillStyle = 'hsl(' + hue + ', 100%, 50%)';
 
         //drawContext.fillStyle = gradientColor;
@@ -148,7 +138,7 @@ function infoFile(track) {
 
     var li0 = document.getElementById('title');
     li0.innerHTML = "<strong>" + track.title + "</strong>";
- 
+
     var album_cover = document.getElementById('cover');
     album_cover.src = track.artwork_url;
 
