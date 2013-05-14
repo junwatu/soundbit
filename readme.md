@@ -8,6 +8,8 @@ the audio spectrum.
 ~~NOTE:~~
 ~~For now this app using hard coded track id only.~~
 
+Read more from blog post (Indonesian)
+<a href="http://www.junwatu.com/?p=3366">Audio streaming from SoundCloud and visualization with Web Audio API.</a>
 
 Screenshot
 ---------
