@@ -33,7 +33,7 @@ var track_url = 'https://soundcloud.com/centurymedia/02-the-science-of-noise',
 SC.get('/resolve', { url: track_url }, function (track) {
     TRACK = "/tracks/" + track.id;
 
-    SC.stream(TRACK,function(sound){
+    SC.stream(TRACK, function (sound) {
         console.log(sound);
         audioElementSource.src = sound.url;
         audioElementSource.autoplay = false;
@@ -60,12 +60,12 @@ function infoFile(track) {
 /**
  * Web Audio API
  */
-var WIDTH = 330;
-var HEIGHT = 130;
+var WIDTH = 330,
+    HEIGHT = 130;
 
 // Interesting parameters to tweak!
-var SMOOTHING = 0.2;
-var FFT_SIZE = 128;
+var SMOOTHING = 0.2,
+    FFT_SIZE = 128;
 
 var contextClass = (window.AudioContext ||
     window.webkitAudioContext ||
@@ -73,11 +73,11 @@ var contextClass = (window.AudioContext ||
     window.oAudioContext ||
     window.msAudioContext);
 
-if(contextClass){
+if (contextClass) {
     var context = new webkitAudioContext(),
         analyser = context.createAnalyser();
 
-}else {
+} else {
     alert("Your browser not supported!");
 }
 
@@ -88,32 +88,23 @@ audioElementSource.addEventListener("canplay", function () {
     visualize();
 });
 
-window.requestAnimFrame = (function () {
-    return window.requestAnimationFrame ||
-        window.webkitRequestAnimationFrame ||
-        function (callback) {
-            window.setTimeout(callback, 1000 / 60);
-        };
-})
+var canvas = document.querySelector('canvas'),
+    drawContext = canvas.getContext('2d'),
+    freqs = new Uint8Array(analyser.frequencyBinCount);
 
 analyser.minDecibels = -140;
 analyser.maxDecibels = 0;
+analyser.smoothingTimeConstant = SMOOTHING;
+analyser.fftSize = FFT_SIZE;
 
 /**
  * Visualize with canvas
  */
 function visualize() {
-    var canvas = document.querySelector('canvas');
-    var drawContext = canvas.getContext('2d');
     canvas.width = WIDTH;
     canvas.height = HEIGHT;
 
     window.webkitRequestAnimationFrame(visualize, canvas);
-
-    var freqs = new Uint8Array(analyser.frequencyBinCount);
-
-    analyser.smoothingTimeConstant = SMOOTHING;
-    analyser.fftSize = FFT_SIZE;
 
     /**
      * Draw the frequency domain chart.
