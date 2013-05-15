@@ -14,13 +14,16 @@
  * 2013
  */
 
-// SoundCloud ID
-var CLIENT_ID = '75b58a823bb6eba65437a5d0838b311a';
+/**
+ * SoundCloud Id
+ * Change it to yours ok...
+ */
+var CLIENT_ID = 'YOUR_SOUNDCLOUD_CLIENT_APP_ID';
 
 // Get Audio Tag Id
 var audioElementSource = document.getElementById('audioElement');
 
-// Authorize';
+// Authorize
 SC.initialize({
     client_id: CLIENT_ID
 });
@@ -92,6 +95,10 @@ audioElementSource.addEventListener("canplay", function () {
     visualize();
 });
 
+/**
+ * Detect volume control value change
+ *
+ */
 audioElementSource.addEventListener("volumechange", function(){
    //console.log(audioElementSource.volume);
    gainNode.gain.value = audioElementSource.volume;
