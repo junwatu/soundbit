@@ -28,4 +28,9 @@ Warning
 Tested only on Google Chrome 27 version.
 
 
-Enjoy!
+Changelog
+---------
+
+**0.0.2** - 05/15/2013
+
+* Implement GainNode and enable audio volume control
