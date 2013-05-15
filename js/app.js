@@ -15,12 +15,12 @@
  */
 
 // SoundCloud ID
-var CLIENT_ID = 'YOUR_SOUNDCLOUD_CLIENT_ID';
+var CLIENT_ID = '75b58a823bb6eba65437a5d0838b311a';
 
 // Get Audio Tag Id
 var audioElementSource = document.getElementById('audioElement');
 
-// Authorize
+// Authorize';
 SC.initialize({
     client_id: CLIENT_ID
 });
@@ -75,7 +75,8 @@ var contextClass = (window.AudioContext ||
 
 if (contextClass) {
     var context = new webkitAudioContext(),
-        analyser = context.createAnalyser();
+        analyser = context.createAnalyser(),
+        gainNode = context.createGainNode();
 
 } else {
     alert("Your browser not supported!");
@@ -83,9 +84,17 @@ if (contextClass) {
 
 audioElementSource.addEventListener("canplay", function () {
     var sourceNode = context.createMediaElementSource(audioElementSource);
+
     sourceNode.connect(analyser);
-    analyser.connect(context.destination);
+    analyser.connect(gainNode);
+    gainNode.connect(context.destination);
+
     visualize();
+});
+
+audioElementSource.addEventListener("volumechange", function(){
+   //console.log(audioElementSource.volume);
+   gainNode.gain.value = audioElementSource.volume;
 });
 
 var canvas = document.querySelector('canvas'),
