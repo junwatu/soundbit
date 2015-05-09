@@ -9,42 +9,37 @@
  * 2015
  */
 
-/**
- * SoundCloud Id
- * Change it to yours ok...
- */
 var CLIENT_ID = '75b58a823bb6eba65437a5d0838b311a';
-
-// Get Audio Tag Id
 var audioElementSource = document.getElementById('audioElement');
 
-// Authorize
 SC.initialize({
     client_id: CLIENT_ID
 });
 
 // Permalink to a track
-var track_url = 'https://soundcloud.com/roadrunner-usa/killswitch-engage-the-end-of',
-    TRACK = "";
+var track_url = 'https://soundcloud.com/roadrunner-usa/killswitch-engage-the-end-of';
+var TRACK;
 
-// Resolve track id from permalink
 SC.get('/resolve', { url: track_url }, function (track) {
+
     console.log(track);
-    TRACK = "/tracks/" + track.id ;
+    // damn! some good song is unstreamable      
+    if (track.streamable) {
+        TRACK = "/tracks/" + track.id;
 
-    SC.stream(TRACK, function (sound) {
-        console.log(sound);
-        audioElementSource.src = sound.url;
-        audioElementSource.autoplay = false;
-    });
-
-    SC.whenStreamingReady(function () {
-        SC.get(TRACK, function (track) {
-            //console.log(track);
-            infoFile(track);
+        SC.stream(TRACK, function (sound) {
+            audioElementSource.src = sound.url;
+            audioElementSource.autoplay = false;
         });
-    });
 
+        SC.whenStreamingReady(function () {
+            SC.get(TRACK, function (track) {
+                infoFile(track);
+            });
+        });
+    } else {
+        alert('Audio not streamable! :(');
+    }
 });
 
 function infoFile(track) {
@@ -56,17 +51,13 @@ function infoFile(track) {
 
 }
 
-/**
- * Web Audio API
- */
-var WIDTH = 330,
-    HEIGHT = 130;
-
-// Interesting parameters to tweak!
+var WIDTH = 330;
+var HEIGHT = 130;
 var SMOOTHING = 0.2;
 var FFT_SIZE = 128;
 var context = new AudioContext();
 var analyser = context.createAnalyser();
+// should be createGain() but on Chrome 42 there is no audio output.
 var gain = context.createGainNode();
 
 audioElementSource.addEventListener("canplay", function () {
@@ -74,17 +65,12 @@ audioElementSource.addEventListener("canplay", function () {
 
     sourceNode.connect(analyser);
     analyser.connect(gain);
-  
     gain.connect(context.destination);
-    
+
 });
 
-/**
- * Detect volume control value change
- *
- */
-audioElementSource.addEventListener("volumechange", function(){
-   gain.gain.value = audioElementSource.volume;
+audioElementSource.addEventListener("volumechange", function () {
+    gain.gain.value = audioElementSource.volume;
 });
 
 var canvas = document.querySelector('canvas');
