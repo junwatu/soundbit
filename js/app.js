@@ -5,20 +5,15 @@
  * Streaming from  SoundCloud and Visualize using Web Audio API
  *
  *
- * NOTE:
- * TESTED on Google Chrome Version 27.0.1453.65 beta!!
- *
- *
  * Equan Pr.
- * www.junwatu.com
- * 2013
+ * 2015
  */
 
 /**
  * SoundCloud Id
  * Change it to yours ok...
  */
-var CLIENT_ID = 'YOUR_SOUNDCLOUD_CLIENT_APP_ID';
+var CLIENT_ID = '75b58a823bb6eba65437a5d0838b311a';
 
 // Get Audio Tag Id
 var audioElementSource = document.getElementById('audioElement');
@@ -29,12 +24,13 @@ SC.initialize({
 });
 
 // Permalink to a track
-var track_url = 'https://soundcloud.com/centurymedia/02-the-science-of-noise',
+var track_url = 'https://soundcloud.com/roadrunner-usa/killswitch-engage-the-end-of',
     TRACK = "";
 
 // Resolve track id from permalink
 SC.get('/resolve', { url: track_url }, function (track) {
-    TRACK = "/tracks/" + track.id;
+    console.log(track);
+    TRACK = "/tracks/" + track.id ;
 
     SC.stream(TRACK, function (sound) {
         console.log(sound);
@@ -67,32 +63,20 @@ var WIDTH = 330,
     HEIGHT = 130;
 
 // Interesting parameters to tweak!
-var SMOOTHING = 0.2,
-    FFT_SIZE = 128;
-
-var contextClass = (window.AudioContext ||
-    window.webkitAudioContext ||
-    window.mozAudioContext ||
-    window.oAudioContext ||
-    window.msAudioContext);
-
-if (contextClass) {
-    var context = new webkitAudioContext(),
-        analyser = context.createAnalyser(),
-        gainNode = context.createGainNode();
-
-} else {
-    alert("Your browser not supported!");
-}
+var SMOOTHING = 0.2;
+var FFT_SIZE = 128;
+var context = new AudioContext();
+var analyser = context.createAnalyser();
+var gain = context.createGainNode();
 
 audioElementSource.addEventListener("canplay", function () {
     var sourceNode = context.createMediaElementSource(audioElementSource);
 
     sourceNode.connect(analyser);
-    analyser.connect(gainNode);
-    gainNode.connect(context.destination);
-
-    visualize();
+    analyser.connect(gain);
+  
+    gain.connect(context.destination);
+    
 });
 
 /**
@@ -100,13 +84,12 @@ audioElementSource.addEventListener("canplay", function () {
  *
  */
 audioElementSource.addEventListener("volumechange", function(){
-   //console.log(audioElementSource.volume);
-   gainNode.gain.value = audioElementSource.volume;
+   gain.gain.value = audioElementSource.volume;
 });
 
-var canvas = document.querySelector('canvas'),
-    drawContext = canvas.getContext('2d'),
-    freqs = new Uint8Array(analyser.frequencyBinCount);
+var canvas = document.querySelector('canvas');
+var drawContext = canvas.getContext('2d');
+var freqs = new Uint8Array(analyser.frequencyBinCount);
 
 analyser.minDecibels = -140;
 analyser.maxDecibels = 0;
@@ -120,7 +103,7 @@ function visualize() {
     canvas.width = WIDTH;
     canvas.height = HEIGHT;
 
-    window.webkitRequestAnimationFrame(visualize, canvas);
+    requestAnimationFrame(visualize, canvas);
 
     /**
      * Draw the frequency domain chart.
