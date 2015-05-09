@@ -10,7 +10,6 @@ the audio spectrum.
 
 Read more from blog post (Indonesian)
 
-<a href="http://www.junwatu.com/?p=3366">Audio streaming from SoundCloud and visualization with Web Audio API.</a>
 
 Screenshot
 ---------
@@ -18,18 +17,15 @@ Here is the simple ui for this app
 
 ![soundwig-screenshot](https://raw.github.com/junwatu/soundwig/soundwig-simple/screenshot/soundwig-0.0.1.png)
 
-Demo
------
-http://www.junwatu.com/apps/havesomefun
-
 
 Warning
 -------
-Tested only on Google Chrome 27 version.
+Due to Web Audio change some feature is broken. Will fix it soon
 
 
 Changelog
 ---------
+
 
 **0.0.2** - 05/15/2013
 
