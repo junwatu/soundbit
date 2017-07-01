@@ -59,3 +59,7 @@ ul li {
     border: 0px;
     background-color: black;
 }
+
+audio {
+	background: rgba(255, 255, 255, 0.5);
+}

@@ -1,0 +1,27 @@
+{
+  "name": "soundwig",
+  "version": "1.0.0",
+  "description": "Soundcloud player",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/junwatu/soundwig.git"
+  },
+  "keywords": [
+    "soundcloud",
+    "player",
+    "desktop"
+  ],
+  "author": "Equan Pr.",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/junwatu/soundwig/issues"
+  },
+  "homepage": "https://github.com/junwatu/soundwig#readme",
+  "dependencies": {
+    "express": "^4.15.3"
+  }
+}

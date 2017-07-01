@@ -6,23 +6,31 @@
  *
  *
  * Equan Pr.
- * 2015
+ * 2018
  */
 
 var CLIENT_ID = '75b58a823bb6eba65437a5d0838b311a';
 var audioElementSource = document.getElementById('audioElement');
 
+// Handle MediaElementAudioSource outputs zeroes due to CORS access restrictions
+audioElementSource.crossOrigin="anonymous";
+
 SC.initialize({
-    client_id: CLIENT_ID
+    client_id: CLIENT_ID,
+    redirect_uri: 'http://localhost:3003/callback'
 });
 
 // Permalink to a track
+//var track_url = 'https://soundcloud.com/roadrunner-usa/killswitch-engage-the-end-of';
+// var track_url = 'https://soundcloud.com/equan-pr/kidung-kolosebo';
 var track_url = 'https://soundcloud.com/roadrunner-usa/killswitch-engage-the-end-of';
+
 var TRACK;
 
-SC.get('/resolve', { url: track_url }, function (track) {
+const resolvePromise = SC.get('/resolve', { url: track_url }, function (track) {
 
     console.log(track);
+
     // damn! some good song is unstreamable      
     if (track.streamable) {
         TRACK = "/tracks/" + track.id;
@@ -52,13 +60,12 @@ function infoFile(track) {
 }
 
 var WIDTH = 330;
-var HEIGHT = 130;
+var HEIGHT = 110;
 var SMOOTHING = 0.2;
 var FFT_SIZE = 128;
 var context = new AudioContext();
 var analyser = context.createAnalyser();
-// should be createGain() but on Chrome 42 there is no audio output.
-var gain = context.createGainNode();
+var gain = context.createGain();
 
 audioElementSource.addEventListener("canplay", function () {
     var sourceNode = context.createMediaElementSource(audioElementSource);
@@ -66,6 +73,7 @@ audioElementSource.addEventListener("canplay", function () {
     sourceNode.connect(analyser);
     analyser.connect(gain);
     gain.connect(context.destination);
+    visualize();
 
 });
 
