@@ -1,5 +1,5 @@
 /**
- * SoundWig
+ * Soundbit
  * Have Some Fun
  *
  * Streaming from  SoundCloud and Visualize using Web Audio API
@@ -22,8 +22,8 @@ SC.initialize({
 
 // Permalink to a track
 //var track_url = 'https://soundcloud.com/roadrunner-usa/killswitch-engage-the-end-of';
-// var track_url = 'https://soundcloud.com/equan-pr/kidung-kolosebo';
-var track_url = 'https://soundcloud.com/roadrunner-usa/killswitch-engage-the-end-of';
+var track_url = 'https://soundcloud.com/equan-pr/kidung-kolosebo';
+// var track_url = 'https://soundcloud.com/listen-to-aftercoma/03-jelaga';
 
 var TRACK;
 
@@ -55,8 +55,13 @@ function infoFile(track) {
     li0.innerHTML = "<strong>" + track.title + "</strong>";
 
     var album_cover = document.getElementById('cover');
-    album_cover.src = track.artwork_url;
-
+    
+    if(track.artwork_url === null) {
+        album_cover.src = track.user.avatar_url;
+    } else {
+        album_cover.src = track.artwork_url;
+    }
+  
 }
 
 var WIDTH = 330;
