@@ -17,7 +17,7 @@ Screenshot
 ---------
 Here is the simple ui for this app
 
-![soundwig-screenshot](https://raw.github.com/junwatu/soundwig/soundwig-simple/screenshot/soundwig-0.0.1.png)
+![soundwig-screenshot](https://raw.github.com/junwatu/soundbit/dev/screenshot/soundwig-0.0.1.png)
 
 or watch this video
 
