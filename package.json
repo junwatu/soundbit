@@ -4,11 +4,12 @@
   "description": "Soundcloud player",
   "main": "app.js",
   "scripts": {
+    "start": "node app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/junwatu/soundwig.git"
+    "url": "git+https://github.com/junwatu/soundbit.git"
   },
   "keywords": [
     "soundcloud",
@@ -18,9 +19,9 @@
   "author": "Equan Pr.",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/junwatu/soundwig/issues"
+    "url": "https://github.com/junwatu/soundbit/issues"
   },
-  "homepage": "https://github.com/junwatu/soundwig#readme",
+  "homepage": "https://github.com/junwatu/soundbit#readme",
   "dependencies": {
     "express": "^4.15.3"
   }
