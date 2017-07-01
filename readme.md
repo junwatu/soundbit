@@ -21,7 +21,7 @@ Here is the simple ui for this app
 
 or watch this video
 
-[![Youtube Thumbnail](https://img.youtube.com/vi/s7GonJoYH04/0.jpg)](https://www.youtube.com/watch?v=s7GonJoYH04&feature=youtu.be)
+[![Youtube Thumbnail](https://img.youtube.com/vi/-hza-3K4eZg/0.jpg)](https://www.youtube.com/watch?v=-hza-3K4eZgfeature=youtu.be)
 
 
 Changelog
